@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Collections.singletonMap;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -33,6 +33,6 @@ public class UserResource {
     @RequestMapping(method = POST)
     public Map save(@RequestBody Map user) {
         this.app.saveUser(user);
-        return Collections.singletonMap("status", "ok");
+        return singletonMap("status", "ok");
     }
 }
