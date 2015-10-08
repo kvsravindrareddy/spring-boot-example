@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.function.Consumer;
@@ -15,15 +16,14 @@ import java.util.function.Function;
 public class Transactor {
 
     private final TransactionTemplate transactionTemplate;
+    private final PlatformTransactionManager transactionManager;
 
     @Autowired
-    public Transactor(PlatformTransactionManager txManager) {
-        this.transactionTemplate = new TransactionTemplate(txManager);
+    public Transactor(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
-    /**
-     * Callback run within a transaction, if an exception is throw it will propagate
-     */
     public <T> T call(Function<TransactionStatus, T> function) {
         try {
             return transactionTemplate.execute(status -> function.apply(status));
@@ -32,9 +32,6 @@ public class Transactor {
         }
     }
 
-    /**
-     * Callback run within a transaction, if an exception is throw it will propagate
-     */
     public void run(Consumer<TransactionStatus> function) {
         call(status -> {
             function.accept(status);
@@ -43,10 +40,15 @@ public class Transactor {
     }
 
     public void runAndRollback(Consumer<TransactionStatus> function) {
-        call(status -> {
-            status.setRollbackOnly();
-            function.accept(status);
-            return null;
-        });
+        final TransactionStatus status = transactionManager.getTransaction(transactionTemplate);
+        try {
+            final TransactionCallback action = txStatus -> {
+                function.accept(txStatus);
+                return null;
+            };
+            action.doInTransaction(status);
+        } finally {
+            transactionManager.rollback(status);
+        }
     }
 }
