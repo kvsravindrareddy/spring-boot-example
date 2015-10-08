@@ -12,15 +12,20 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 import java.io.IOException;
+
+import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
 @SpringBootApplication
 @ComponentScan
 @Configuration
+
 @EnableAutoConfiguration
 @EnableHystrix
 @EnableHystrixDashboard
+@EnableHypermediaSupport(type = HAL)
 public class Application {
 
     public static void main(String[] args) {

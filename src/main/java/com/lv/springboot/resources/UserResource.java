@@ -1,5 +1,6 @@
 package com.lv.springboot.resources;
 
+import com.lv.springboot.model.User;
 import com.lv.springboot.service.MyApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +27,8 @@ public class UserResource {
     }
 
     @RequestMapping("{id}")
-    public Optional<Map<String, Object>> get(@PathVariable BigDecimal id) {
-        return app.userFor(id);
+    public Optional<User> get(@PathVariable BigDecimal id) {
+        return app.userFor(id).map(User::new);
     }
 
     @RequestMapping(method = POST)

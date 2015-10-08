@@ -5,18 +5,17 @@ import com.mashape.unirest.http.async.Callback;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class UnirestWrapper {
 
-    public static CompletableFuture<HttpResponse<Map>> unirest(Supplier<HttpRequest> requestSupplier) {
-        final CompletableFuture<HttpResponse<Map>> responseData = new CompletableFuture<>();
+    public static <T> CompletableFuture<HttpResponse<T>> callAsync(Class<T> type, Supplier<HttpRequest> requestSupplier) {
+        final CompletableFuture<HttpResponse<T>> responseData = new CompletableFuture<>();
         requestSupplier.get()
-            .asObjectAsync(Map.class, new Callback<Map>() {
+            .asObjectAsync(type, new Callback<T>() {
                 @Override
-                public void completed(HttpResponse<Map> httpResponse) {
+                public void completed(HttpResponse<T> httpResponse) {
                     responseData.complete(httpResponse);
                 }
 

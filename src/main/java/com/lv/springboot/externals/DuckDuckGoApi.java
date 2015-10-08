@@ -4,8 +4,6 @@ import com.lv.springboot.externals.ex.DuckDuckGoException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,13 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 import static com.google.common.collect.Maps.newHashMap;
-import static com.lv.springboot.util.UnirestWrapper.unirest;
+import static com.lv.springboot.util.UnirestWrapper.callAsync;
 import static java.lang.String.format;
 
 @Service
 public class DuckDuckGoApi {
-
-    private static final Logger log = LoggerFactory.getLogger(DuckDuckGoApi.class);
 
     private final String mashapeKey;
     private final String url;
@@ -33,7 +29,7 @@ public class DuckDuckGoApi {
 
     @HystrixCommand(fallbackMethod = "fallback")
     public Map zeroClickInfo(String q) {
-        final HttpResponse<Map> response = unirest(() -> Unirest.get(format(url, q))
+        final HttpResponse<Map> response = callAsync(Map.class, () -> Unirest.get(format(url, q))
             .header("X-Mashape-Key", mashapeKey)
             .header("Accept", "application/json"))
             .join();
