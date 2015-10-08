@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
@@ -22,6 +23,7 @@ import static org.springframework.hateoas.config.EnableHypermediaSupport.Hyperme
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableHypermediaSupport(type = HAL)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class Application {
 
     public static void main(String[] args) {
