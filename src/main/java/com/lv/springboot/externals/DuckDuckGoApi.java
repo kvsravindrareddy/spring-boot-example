@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static alexh.Unchecker.uncheckedGet;
 import static com.google.common.collect.Maps.newHashMap;
+import static com.lv.springboot.util.UnirestWrapper.unirest;
 import static java.lang.String.format;
 
 @Service
@@ -22,24 +22,24 @@ public class DuckDuckGoApi {
     private static final Logger log = LoggerFactory.getLogger(DuckDuckGoApi.class);
 
     private final String mashapeKey;
+    private final String url;
 
     @Autowired
-    public DuckDuckGoApi(@Value("${mashapeKey}") String mashapeKey) {
+    public DuckDuckGoApi(@Value("${mashapeKey}") String mashapeKey,
+                         @Value("${duckduckgo.url}") String url) {
         this.mashapeKey = mashapeKey;
+        this.url = url;
     }
 
     @HystrixCommand(fallbackMethod = "fallback")
     public Map zeroClickInfo(String q) {
-        return uncheckedGet(() -> {
-            final HttpResponse<Map> response = Unirest.get(format("https://duckduckgo-duckduckgo-zero-click-info.p.mashape.com/?format=json&no_html=1&no_redirect=1&q=%s&skip_disambig=1", q))
-                    .header("X-Mashape-Key", mashapeKey)
-                    .header("Accept", "application/json")
-                    .asObject(Map.class);
+        final HttpResponse<Map> response = unirest(() -> Unirest.get(format(url, q))
+            .header("X-Mashape-Key", mashapeKey)
+            .header("Accept", "application/json"))
+            .join();
 
-            if (response.getStatus() == 200) return response.getBody();
-            log.error("Request to DuckDuckGo failed with status code " + response.getStatus());
-            throw new DuckDuckGoException(response.getStatusText());
-        });
+        if (response.getStatus() == 200) return response.getBody();
+        throw new DuckDuckGoException(response.getStatusText());
     }
 
     public Map fallback(String q) {
