@@ -7,6 +7,7 @@
     <groupId>com.lv</groupId>
     <artifactId>spring-boot-example</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <description>A boilerplate spring-boot project</description>
 
     <properties>
         <java.version>1.8</java.version>

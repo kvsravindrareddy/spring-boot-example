@@ -26,7 +26,7 @@ public class Transactor {
 
     public <T> T call(Function<TransactionStatus, T> function) {
         try {
-            return transactionTemplate.execute(status -> function.apply(status));
+            return transactionTemplate.execute(function::apply);
         } catch (TransactionException e) {
             throw e.getCause() != null ? Throwables.propagate(e.getCause()) : e;
         }
