@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
+import static com.google.common.collect.Maps.newHashMap;
 
 public class BaseDao {
 
@@ -21,7 +22,7 @@ public class BaseDao {
     }
 
     protected static Map<String, Object> transformKeys(Map<String, Object> map) {
-        final HashMap<String, Object> copy = new HashMap<>();
+        final HashMap<String, Object> copy = newHashMap();
         map.forEach((key, val) -> copy.put(UPPER_UNDERSCORE.to(LOWER_CAMEL, key.toLowerCase()), val));
         return copy;
     }

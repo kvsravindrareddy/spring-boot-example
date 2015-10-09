@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
 import com.lv.springboot.resources.UserResource;
+import org.joda.time.DateTime;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -29,8 +32,16 @@ public class User extends ResourceSupport {
         return data.get("firstname").asString();
     }
 
+    public Date getCreated() {
+        return DateTime.now().toDate();
+    }
+
     public String getLastname() {
         return data.get("lastname").asString();
+    }
+
+    public Optional<String> getMiddlename() {
+        return data.get("middlename").maybe().asString();
     }
 
     @JsonProperty("_links")
