@@ -3,6 +3,7 @@ package com.lv.springboot.service;
 import com.lv.springboot.persistence.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -14,10 +15,12 @@ public class MyApplication {
     @Autowired
     private UserDao userDao;
 
+    @Transactional
     public void saveUser(Map user) {
         userDao.insert(user);
     }
 
+    @Transactional(readOnly = true)
     public Optional<Map<String, Object>> userFor(BigDecimal id) {
         return userDao.userFor(id);
     }
