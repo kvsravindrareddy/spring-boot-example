@@ -33,5 +33,11 @@ You can return JSON objects with embedded links.
 ## Hystrix and Hystrix Dashboard
 Support for the circuit breaker pattern.
 
+## Non blocking I/O support
+Support for making asynchronous HTTP requests with Unirest. 
+
+## Health Checks
+JSON endpoint informing you whether the microservice is operational or not.
+
 ## License
 MIT
