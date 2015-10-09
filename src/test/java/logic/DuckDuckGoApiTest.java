@@ -45,4 +45,15 @@ public class DuckDuckGoApiTest {
             assertThat(london).contains(entry("Heading", "London"));
         });
     }
+
+    @Test
+    public void fallbackToAnEmptyMap() throws Exception {
+        final HttpServer server = httpServer(12306);
+        server.get(eq(query("q"), "London")).response(status(500));
+
+        running(server, () -> {
+            final Map london = duckDuckGo.zeroClickInfo("London");
+            assertThat(london).isEmpty();
+        });
+    }
 }

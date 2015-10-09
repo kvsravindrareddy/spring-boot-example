@@ -25,9 +25,6 @@ public class DuckDuckGoApi {
 
     @HystrixCommand(fallbackMethod = "fallback")
     public Map zeroClickInfo(String q) {
-
-        System.out.println(url);
-
         final HttpResponse<Map> response = callAsync(Map.class, () -> Unirest.get(format(url, q))
             .header("X-Mashape-Key", mashapeKey)
             .header("Accept", "application/json"))
