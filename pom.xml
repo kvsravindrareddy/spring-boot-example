@@ -134,6 +134,12 @@
             <version>3.2.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.dreamhead</groupId>
+            <artifactId>moco-core</artifactId>
+            <version>0.10.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -178,6 +184,28 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <!-- Filter main/resources -->
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <!-- Filter com/resources -->
+            <testResource>
+                <filtering>true</filtering>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <!-- Include JSON files in com classpath -->
+            <testResource>
+                <directory>src/test/java</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 
     <profiles>

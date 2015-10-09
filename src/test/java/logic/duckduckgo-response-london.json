@@ -1,0 +1,163 @@
+{
+  "DefinitionSource": "",
+  "Heading": "London",
+  "ImageWidth": 295,
+  "RelatedTopics": [
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/London\">London Category</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/London",
+      "Text": "London Category"
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/Outline_of_England\">Outline of England</a> - England is a country that is part of the United Kingdom. Its 54,316,600 inhabitants account for more than 84% of the total UK population, while its mainland territory occupies most of the southern two-thirds of the island of Great Britain.",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/Outline_of_England",
+      "Text": "Outline of England - England is a country that is part of the United Kingdom. Its 54,316,600 inhabitants account for more than 84% of the total UK population, while its mainland territory occupies most of the southern two-thirds of the island of Great Britain."
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/Water_supply_and_sanitation_in_London\">Water supply and sanitation in London</a> - Water supply and sanitation in London is provided by a number of private companies. The regional water strategy for London is produced by the Greater London Authority. Much of the water supply and sewerage system was constructed during the Victorian era.",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/Water_supply_and_sanitation_in_London",
+      "Text": "Water supply and sanitation in London - Water supply and sanitation in London is provided by a number of private companies. The regional water strategy for London is produced by the Greater London Authority. Much of the water supply and sewerage system was constructed during the Victorian era."
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/Port_cities_and_towns_in_England\">Port cities and towns in England</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/Port_cities_and_towns_in_England",
+      "Text": "Port cities and towns in England"
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/Staple_ports\">Staple ports</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/Staple_ports",
+      "Text": "Staple ports"
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/British_capitals\">British capitals</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/British_capitals",
+      "Text": "British capitals"
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/Populated_places_established_in_the_1st_century\">Populated places established in the 1st century</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/Populated_places_established_in_the_1st_century",
+      "Text": "Populated places established in the 1st century"
+    },
+    {
+      "Result": "<a href=\"https://duckduckgo.com/c/Capitals_in_Europe\">Capitals in Europe</a>",
+      "Icon": {
+        "URL": "",
+        "Height": "",
+        "Width": ""
+      },
+      "FirstURL": "https://duckduckgo.com/c/Capitals_in_Europe",
+      "Text": "Capitals in Europe"
+    }
+  ],
+  "Entity": "location",
+  "meta": {
+    "perl_module": "DDG::Fathead::Wikipedia",
+    "status": "live",
+    "dev_date": null,
+    "js_callback_name": "wikipedia",
+    "signal_from": "wikipedia_fathead",
+    "live_date": null,
+    "src_options": {
+      "skip_end": "0",
+      "skip_abstract": 0,
+      "skip_qr": "",
+      "language": "en",
+      "skip_icon": 0,
+      "skip_image_name": 0,
+      "directory": "",
+      "min_abstract_length": "20",
+      "skip_abstract_paren": 0,
+      "is_wikipedia": 1,
+      "source_skip": "",
+      "is_fanon": 0,
+      "is_mediawiki": 1,
+      "src_info": ""
+    },
+    "repo": "fathead",
+    "src_id": 1,
+    "developer": [
+      {
+        "name": "DDG Team",
+        "url": "http://www.duckduckhack.com",
+        "type": "ddg"
+      }
+    ],
+    "tab": "About",
+    "producer": null,
+    "dev_milestone": "live",
+    "id": "wikipedia_fathead",
+    "topic": [
+      "productivity"
+    ],
+    "attribution": null,
+    "name": "Wikipedia",
+    "example_query": "nicola tesla",
+    "created_date": null,
+    "is_stackexchange": null,
+    "description": "Wikipedia",
+    "designer": null,
+    "src_domain": "en.wikipedia.org",
+    "src_name": "Wikipedia"
+  },
+  "Type": "A",
+  "Redirect": "",
+  "DefinitionURL": "",
+  "AbstractURL": "https://en.wikipedia.org/wiki/London",
+  "Definition": "",
+  "AbstractSource": "Wikipedia",
+  "Infobox": "",
+  "Image": "https://duckduckgo.com/i/ef63c060.jpg",
+  "ImageIsLogo": 0,
+  "Abstract": "London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core. The bulk of this conurbation forms Greater London, a region of England governed by the Mayor of London and the London Assembly. The conurbation also covers two English counties, the City of London and the county of Greater London, though historically it was split between the City, Middlesex, Essex, Surrey, Kent and Hertfordshire.",
+  "AbstractText": "London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core. The bulk of this conurbation forms Greater London, a region of England governed by the Mayor of London and the London Assembly. The conurbation also covers two English counties, the City of London and the county of Greater London, though historically it was split between the City, Middlesex, Essex, Surrey, Kent and Hertfordshire.",
+  "AnswerType": "",
+  "ImageHeight": 200,
+  "Answer": "",
+  "Results": [
+    {
+      "Result": "<a href=\"https://london.gov.uk/\">Official site</a><a href=\"https://london.gov.uk/\"></a>",
+      "Icon": {
+        "URL": "https://duckduckgo.com/i/london.gov.uk.ico",
+        "Height": 16,
+        "Width": 16
+      },
+      "FirstURL": "https://london.gov.uk/",
+      "Text": "Official site"
+    }
+  ]
+}
