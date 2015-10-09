@@ -17,15 +17,11 @@ import static java.lang.String.format;
 @Service
 public class DuckDuckGoApi {
 
-    private final String mashapeKey;
-    private final String url;
+    @Autowired @Value("${mashapeKey}")
+    private String mashapeKey;
 
-    @Autowired
-    public DuckDuckGoApi(@Value("${mashapeKey}") String mashapeKey,
-                         @Value("${duckduckgo.url}") String url) {
-        this.mashapeKey = mashapeKey;
-        this.url = url;
-    }
+    @Autowired @Value("${duckduckgo.url}")
+    private String url;
 
     @HystrixCommand(fallbackMethod = "fallback")
     public Map zeroClickInfo(String q) {

@@ -12,12 +12,8 @@ import java.util.Map;
 @RequestMapping("duckduckgo")
 public class DuckDuckGoResource {
 
-    private final DuckDuckGoApi api;
-
     @Autowired
-    public DuckDuckGoResource(DuckDuckGoApi api) {
-        this.api = api;
-    }
+    private DuckDuckGoApi api;
 
     @RequestMapping
     public Map query(@RequestParam String q) {

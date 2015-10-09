@@ -27,11 +27,12 @@ public class UserDaoTest {
     private Transactor transactor;
 
     @Test
-    public void saveUsers() {
+    public void canInsertUsers() {
         transactor.runAndRollback(status -> {
             userDao.insert(normalUserPaul());
+
             final Map<String, Object> user = userDao.userFor(BigDecimal.ONE).get();
-            assertThat(user).contains(entry("firstname", "Paul"));
+            assertThat(user).contains(entry("firstname", "Paul"), entry("lastname", "Denver"));
         });
     }
 }

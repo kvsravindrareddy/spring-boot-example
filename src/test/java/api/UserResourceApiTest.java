@@ -34,7 +34,7 @@ public class UserResourceApiTest {
     @Test
     @SuppressWarnings("unchecked")
     public void returnsUsers() {
-        restTemplate.postForObject("http://localhost:8080/users", normalUserKevin(), Map.class);
+        restTemplate.postForObject("http://localhost:9091/users", normalUserKevin(), Map.class);
         final Map response = restTemplate.getForObject("http://localhost:9091/users/1", Map.class);
         assertThat(response).contains(entry("firstname", "Kevin"), entry("lastname", "Denver"));
     }

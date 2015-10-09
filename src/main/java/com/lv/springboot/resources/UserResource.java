@@ -19,12 +19,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("users")
 public class UserResource {
 
-    private final MyApplication app;
-
     @Autowired
-    public UserResource(MyApplication app) {
-        this.app = app;
-    }
+    private MyApplication app;
 
     @RequestMapping("{id}")
     public Optional<User> get(@PathVariable BigDecimal id) {
