@@ -20,6 +20,14 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class UnirestWrapper {
 
+    public static void setHealthCheckTimeout(Long milliseconds) {
+        Unirest.setTimeouts(milliseconds, milliseconds);
+    }
+
+    public static void restoreDefaultTimeouts() {
+        Unirest.setTimeouts(10000, 60000);
+    }
+
     public static void configure() {
         Unirest.setObjectMapper(new ObjectMapper() {
             private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper = new com.fasterxml.jackson.databind.ObjectMapper()

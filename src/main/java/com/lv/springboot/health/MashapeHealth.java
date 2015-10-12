@@ -8,6 +8,8 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+import static com.lv.springboot.util.UnirestWrapper.restoreDefaultTimeouts;
+import static com.lv.springboot.util.UnirestWrapper.setHealthCheckTimeout;
 import static java.lang.String.format;
 
 @Component
@@ -22,7 +24,7 @@ public class MashapeHealth implements HealthIndicator {
     @Override
     public Health health() {
         try {
-            Unirest.setTimeouts(300, 10000);
+            setHealthCheckTimeout(500L);
             final HttpResponse<String> response = Unirest.options(format(url, "London")).header("X-Mashape-Key", mashapeKey).asString();
             return response.getStatus() == 405 ? Health.up().build() : Health.down().withDetail("status", response.getStatus()).build();
         }
@@ -30,7 +32,7 @@ public class MashapeHealth implements HealthIndicator {
             return Health.down(e).build();
         }
         finally {
-            Unirest.setTimeouts(10000, 60000);
+            restoreDefaultTimeouts();
         }
     }
 }
