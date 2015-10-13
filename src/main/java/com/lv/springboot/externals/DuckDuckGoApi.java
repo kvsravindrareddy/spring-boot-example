@@ -15,6 +15,7 @@ import static alexh.Unchecker.uncheckedGet;
 import static com.google.common.collect.Maps.newHashMap;
 import static java.lang.String.format;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.glassfish.jersey.client.ClientProperties.READ_TIMEOUT;
 
 @Service
 public class DuckDuckGoApi {
@@ -44,6 +45,7 @@ public class DuckDuckGoApi {
             .accept(APPLICATION_JSON)
             .accept("application/x-javascript")
             .header("X-Mashape-Key", mashapeKey)
+            .property(READ_TIMEOUT, 500)
             .get(String.class), Map.class));
     }
 
