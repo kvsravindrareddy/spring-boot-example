@@ -2,7 +2,10 @@ package com.lv.springboot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.lv.springboot.util.UnirestWrapper;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +23,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.ws.rs.client.Client;
+
 import static com.fasterxml.jackson.databind.DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 import static org.springframework.boot.autoconfigure.security.SecurityProperties.ACCESS_OVERRIDE_ORDER;
@@ -36,8 +41,8 @@ import static org.springframework.hateoas.config.EnableHypermediaSupport.Hyperme
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class Application {
 
+    // Start with -Dspring.profiles.active="local"
     public static void main(String[] args) {
-        UnirestWrapper.configure();
         SpringApplication.run(Application.class, args);
     }
 
@@ -48,6 +53,19 @@ public class Application {
             .registerModule(new Jackson2HalModule())
             .configure(USE_BIG_DECIMAL_FOR_FLOATS, true)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false);
+    }
+
+    @Bean
+    public Client jerseyClient() {
+        return JerseyClientBuilder.createClient().register(new LoggingFilter());
+    }
+
+    @Bean(name = "healthCheckJerseyClient")
+    public Client healthCheckJerseyClient() {
+        return JerseyClientBuilder.createClient(new ClientConfig()
+            .property(ClientProperties.READ_TIMEOUT, 500)
+            .property(ClientProperties.CONNECT_TIMEOUT, 500))
+            .register(new LoggingFilter());
     }
 
     @Configuration

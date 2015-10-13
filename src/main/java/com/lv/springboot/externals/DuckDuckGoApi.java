@@ -1,28 +1,37 @@
 package com.lv.springboot.externals;
 
-import com.lv.springboot.externals.ex.DuckDuckGoException;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.client.Client;
 import java.util.Map;
 
+import static alexh.Unchecker.uncheckedGet;
 import static com.google.common.collect.Maps.newHashMap;
-import static com.lv.springboot.util.UnirestWrapper.callAsync;
 import static java.lang.String.format;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Service
 public class DuckDuckGoApi {
 
-    @Autowired @Value("${mashapeKey}")
+    @Autowired
+    @Value("${mashapeKey}")
     private String mashapeKey;
 
-    @Autowired @Value("${duckduckgo.url}")
+    @Autowired
+    @Value("${duckduckgo.url}")
     private String url;
+
+    @Autowired @Qualifier("jerseyClient")
+    private Client client;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @HystrixCommand(
         fallbackMethod = "fallback",
@@ -30,13 +39,12 @@ public class DuckDuckGoApi {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500")
         })
     public Map zeroClickInfo(String q) {
-        final HttpResponse<Map> response = callAsync(Map.class, () -> Unirest.get(format(url, q))
+        return uncheckedGet(() -> mapper.readValue(client.target(format(url, q))
+            .request(APPLICATION_JSON)
+            .accept(APPLICATION_JSON)
+            .accept("application/x-javascript")
             .header("X-Mashape-Key", mashapeKey)
-            .header("Accept", "application/json"))
-            .join();
-
-        if (response.getStatus() == 200) return response.getBody();
-        throw new DuckDuckGoException(response.getStatusText());
+            .get(String.class), Map.class));
     }
 
     public Map fallback(String q) {
