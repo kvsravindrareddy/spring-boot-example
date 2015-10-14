@@ -47,7 +47,7 @@ public class DuckDuckGoApi {
     @HystrixCommand(
         fallbackMethod = "fallback",
         commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "600")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
         })
     public Map zeroClickInfo(String q) {
         try {
