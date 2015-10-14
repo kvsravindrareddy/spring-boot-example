@@ -27,16 +27,19 @@ public class MashapeHealth implements HealthIndicator {
 
     @Override
     public Health health() {
-        final Response response = client.target(format(url, "London"))
-            .request(APPLICATION_JSON)
-            .accept(APPLICATION_JSON)
-            .accept("application/x-javascript")
-            .header("X-Mashape-Key", mashapeKey)
-            .options();
+        try {
+            final Response response = client.target(format(url, "London"))
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .accept("application/x-javascript")
+                .header("X-Mashape-Key", mashapeKey)
+                .options();
 
-        return response.getStatus() == 405 ? Health.up().build() : Health.down()
-            .withDetail("status", response.getStatus())
-            .withDetail("msg", "Failed doing OPTIONS: " + format(url, "London"))
-            .build();
+            return response.getStatus() == 405 ? Health.up().build() : Health.down()
+                .withDetail("status", response.getStatus())
+                .withDetail("msg", "Failed doing OPTIONS: " + format(url, "London"))
+                .build();
+        }
+        catch (Exception e) { return Health.down(e).build(); }
     }
 }

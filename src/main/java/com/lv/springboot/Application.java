@@ -3,7 +3,6 @@ package com.lv.springboot;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +26,8 @@ import javax.ws.rs.client.Client;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+import static org.glassfish.jersey.client.ClientProperties.CONNECT_TIMEOUT;
+import static org.glassfish.jersey.client.ClientProperties.READ_TIMEOUT;
 import static org.springframework.boot.autoconfigure.security.SecurityProperties.ACCESS_OVERRIDE_ORDER;
 import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
@@ -63,13 +64,14 @@ public class Application {
     @Bean(name = "healthCheckJerseyClient")
     public Client healthCheckJerseyClient() {
         return JerseyClientBuilder.createClient(new ClientConfig()
-            .property(ClientProperties.READ_TIMEOUT, 500)
-            .property(ClientProperties.CONNECT_TIMEOUT, 500))
+            .property(READ_TIMEOUT, 500)
+            .property(CONNECT_TIMEOUT, 500))
             .register(new LoggingFilter());
     }
 
     @Configuration
     @Order(ACCESS_OVERRIDE_ORDER)
+    @SuppressWarnings("unused")
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
         @Override
