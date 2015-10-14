@@ -2,6 +2,8 @@ package com.lv.springboot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -23,9 +25,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.ws.rs.client.Client;
+import java.util.Map;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.glassfish.jersey.client.ClientProperties.CONNECT_TIMEOUT;
 import static org.glassfish.jersey.client.ClientProperties.READ_TIMEOUT;
 import static org.springframework.boot.autoconfigure.security.SecurityProperties.ACCESS_OVERRIDE_ORDER;
@@ -54,6 +58,14 @@ public class Application {
             .registerModule(new Jackson2HalModule())
             .configure(USE_BIG_DECIMAL_FOR_FLOATS, true)
             .configure(WRITE_DATES_AS_TIMESTAMPS, false);
+    }
+
+    @Bean(name = "duckduckgoCache")
+    public Cache<String, Map> duckduckgoCache() {
+        return CacheBuilder.newBuilder()
+            .maximumSize(50)
+            .expireAfterWrite(1, MINUTES)
+            .build();
     }
 
     @Bean
