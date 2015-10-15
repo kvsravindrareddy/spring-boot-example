@@ -1,10 +1,13 @@
 package com.github.toastshaman.springboot;
 
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
+import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -51,7 +54,8 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean @Primary
+    @Bean
+    @Primary
     public ObjectMapper jacksonBuilder() {
         return new ObjectMapper()
             .registerModule(new Jdk8Module())
@@ -103,6 +107,15 @@ public class Application {
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
             // configure an authentication manager
+        }
+    }
+
+    @Configuration
+    @SuppressWarnings("unused")
+    protected static class SpringConfiguringClass extends MetricsConfigurerAdapter {
+        @Override
+        public void configureReporters(MetricRegistry metricRegistry) {
+            registerReporter(ConsoleReporter.forRegistry(metricRegistry).build()).start(1, MINUTES);
         }
     }
 }
