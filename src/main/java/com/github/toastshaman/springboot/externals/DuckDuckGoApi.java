@@ -1,4 +1,4 @@
-package com.lv.springboot.externals;
+package com.github.toastshaman.springboot.externals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.cache.Cache;

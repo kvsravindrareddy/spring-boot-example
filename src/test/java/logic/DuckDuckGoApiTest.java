@@ -1,8 +1,8 @@
 package logic;
 
 import com.github.dreamhead.moco.HttpServer;
-import com.lv.springboot.Application;
-import com.lv.springboot.externals.DuckDuckGoApi;
+import com.github.toastshaman.springboot.Application;
+import com.github.toastshaman.springboot.externals.DuckDuckGoApi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package com.lv.springboot.resources;
+package com.github.toastshaman.springboot.resources;
 
-import com.lv.springboot.externals.DuckDuckGoApi;
+import com.github.toastshaman.springboot.externals.DuckDuckGoApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

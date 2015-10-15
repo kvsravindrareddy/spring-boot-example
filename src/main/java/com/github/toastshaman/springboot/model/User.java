@@ -1,12 +1,11 @@
-package com.lv.springboot.model;
+package com.github.toastshaman.springboot.model;
 
-import alexh.weak.Dynamic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
-import com.lv.springboot.resources.UserResource;
+import com.github.toastshaman.springboot.resources.UserResource;
+import com.github.toastshaman.springboot.util.ModelObject;
 import org.joda.time.DateTime;
-import org.springframework.hateoas.ResourceSupport;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,21 +14,19 @@ import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
-public class User extends ResourceSupport {
-
-    private final Dynamic data;
+public class User extends ModelObject {
 
     public User(Map data) {
-        this.data = Dynamic.from(data);
+        super(data);
     }
 
     @JsonIgnore
     public BigDecimal getDatabaseId() {
-        return data.get("id").convert().intoDecimal();
+        return  dynamic().get("id").convert().intoDecimal();
     }
 
     public String getFirstname() {
-        return data.get("firstname").asString();
+        return get("firstname", String.class);
     }
 
     public Date getCreated() {
@@ -37,11 +34,11 @@ public class User extends ResourceSupport {
     }
 
     public String getLastname() {
-        return data.get("lastname").asString();
+        return get("lastname", String.class);
     }
 
     public Optional<String> getMiddlename() {
-        return data.get("middlename").maybe().asString();
+        return getMaybe("middlename", String.class);
     }
 
     @JsonProperty("_links")

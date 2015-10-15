@@ -1,4 +1,4 @@
-package com.lv.springboot.persistence;
+package com.github.toastshaman.springboot.persistence;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 

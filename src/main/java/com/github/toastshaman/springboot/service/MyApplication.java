@@ -1,6 +1,6 @@
-package com.lv.springboot.service;
+package com.github.toastshaman.springboot.service;
 
-import com.lv.springboot.persistence.UserDao;
+import com.github.toastshaman.springboot.persistence.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

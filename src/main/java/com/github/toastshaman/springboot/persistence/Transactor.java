@@ -1,4 +1,4 @@
-package com.lv.springboot.persistence;
+package com.github.toastshaman.springboot.persistence;
 
 import com.google.common.base.Throwables;
 import org.springframework.beans.factory.annotation.Autowired;

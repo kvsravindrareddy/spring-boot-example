@@ -1,6 +1,6 @@
 package api;
 
-import com.lv.springboot.Application;
+import com.github.toastshaman.springboot.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;

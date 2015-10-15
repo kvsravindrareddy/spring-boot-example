@@ -172,7 +172,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.lv.springboot.Application</mainClass>
+                    <mainClass>com.github.toastshaman.springboot.Application</mainClass>
                 </configuration>
             </plugin>
 
@@ -198,7 +198,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

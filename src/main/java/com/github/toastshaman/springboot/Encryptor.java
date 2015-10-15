@@ -1,4 +1,4 @@
-package com.lv.springboot;
+package com.github.toastshaman.springboot;
 
 import org.apache.commons.cli.*;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

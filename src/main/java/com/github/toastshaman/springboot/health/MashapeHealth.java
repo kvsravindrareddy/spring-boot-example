@@ -1,4 +1,4 @@
-package com.lv.springboot.health;
+package com.github.toastshaman.springboot.health;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

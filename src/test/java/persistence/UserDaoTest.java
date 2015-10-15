@@ -1,8 +1,8 @@
 package persistence;
 
-import com.lv.springboot.Application;
-import com.lv.springboot.persistence.Transactor;
-import com.lv.springboot.persistence.UserDao;
+import com.github.toastshaman.springboot.Application;
+import com.github.toastshaman.springboot.persistence.Transactor;
+import com.github.toastshaman.springboot.persistence.UserDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

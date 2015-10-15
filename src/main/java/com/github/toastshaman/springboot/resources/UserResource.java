@@ -1,7 +1,8 @@
-package com.lv.springboot.resources;
+package com.github.toastshaman.springboot.resources;
 
-import com.lv.springboot.model.User;
-import com.lv.springboot.service.MyApplication;
+import com.github.toastshaman.springboot.model.User;
+import com.github.toastshaman.springboot.model.UserSchema;
+import com.github.toastshaman.springboot.service.MyApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ public class UserResource {
 
     @RequestMapping(method = POST)
     public Map save(@RequestBody Map user) {
-        this.app.saveUser(user);
+        this.app.saveUser(UserSchema.INSTANCE.map(user));
         return singletonMap("status", "ok");
     }
 }
