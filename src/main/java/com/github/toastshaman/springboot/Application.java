@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -16,7 +17,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -32,7 +32,6 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.glassfish.jersey.client.ClientProperties.CONNECT_TIMEOUT;
 import static org.glassfish.jersey.client.ClientProperties.READ_TIMEOUT;
-import static org.springframework.boot.autoconfigure.security.SecurityProperties.ACCESS_OVERRIDE_ORDER;
 import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
 @SpringBootApplication
@@ -40,6 +39,7 @@ import static org.springframework.hateoas.config.EnableHypermediaSupport.Hyperme
 @Configuration
 
 @EnableAutoConfiguration
+@EnableMetrics
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableHypermediaSupport(type = HAL)
@@ -82,13 +82,22 @@ public class Application {
     }
 
     @Configuration
-    @Order(ACCESS_OVERRIDE_ORDER)
     @SuppressWarnings("unused")
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable();
+            http
+                .authorizeRequests().antMatchers("/metrics").permitAll().and()
+                .authorizeRequests().antMatchers("/health").permitAll().and()
+                .authorizeRequests().antMatchers("/hystrix.stream").permitAll().and()
+                .authorizeRequests().antMatchers("/hystrix").permitAll().and()
+                .authorizeRequests().antMatchers("/env").permitAll().and()
+                .authorizeRequests().antMatchers("/info").permitAll().and()
+                .authorizeRequests().antMatchers("/users").permitAll().and()
+                .authorizeRequests().antMatchers("/duckduckgo").permitAll().and()
+                .authorizeRequests().anyRequest().authenticated().and()
+                .csrf().disable();
         }
 
         @Override

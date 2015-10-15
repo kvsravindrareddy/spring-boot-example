@@ -1,5 +1,6 @@
 package com.github.toastshaman.springboot.resources;
 
+import com.codahale.metrics.annotation.Timed;
 import com.github.toastshaman.springboot.model.User;
 import com.github.toastshaman.springboot.model.UserSchema;
 import com.github.toastshaman.springboot.service.MyApplication;
@@ -23,11 +24,13 @@ public class UserResource {
     @Autowired
     private MyApplication app;
 
+    @Timed
     @RequestMapping("{id}")
     public Optional<User> get(@PathVariable BigDecimal id) {
         return app.userFor(id).map(User::new);
     }
 
+    @Timed
     @RequestMapping(method = POST)
     public Map save(@RequestBody Map user) {
         this.app.saveUser(UserSchema.INSTANCE.map(user));
