@@ -18,8 +18,6 @@ public class DatabaseHealth implements HealthIndicator {
             template.queryForObject("select 1 from dual", Long.class);
             return Health.up().build();
         }
-        catch (Exception e) {
-            return Health.down(e).build();
-        }
+        catch (Exception e) { return Health.down(e).build(); }
     }
 }
